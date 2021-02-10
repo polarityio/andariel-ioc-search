@@ -1,0 +1,65 @@
+{{#if details.hits.hits}}
+  <div>
+    <span class="p-title">{{fa-icon "bug" fixedWidth=true}} Search Result Detail</span>
+  </div>
+  {{#each details.hits.hits as |hit index|}}
+    {{#if (gt index 0)}}
+      <hr>
+    {{/if}}
+    <span class="p-title">Result #{{inc index}}:</span>
+    {{#if hit._index}}
+      {{#if (eq hit._index "logstash-iocapi")}}
+        <div>
+            <span class="p-key">Index: </span>
+            <span class="p-value">IOC API</span>
+        </div>
+      {{/if}}
+    {{/if}}
+    {{#if hit._score}}
+      <div>
+          <span class="p-key">Severity Score: </span>
+          <span class="p-value">{{hit._score}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.id}}
+      <div>
+          <span class="p-key">ID: </span>
+          <span class="p-value">{{hit._source.id}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.domain}}
+      <div>
+          <span class="p-key">Domain: </span>
+          <span class="p-value">{{hit._source.domain}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.entity}}
+      <div>
+          <span class="p-key">Entity: </span>
+          <span class="p-value">{{hit._source.entity}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.isp}}
+      <div>
+          <span class="p-key">ISP: </span>
+          <span class="p-value">{{hit._source.isp}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.country_long}}
+      <div>
+          <span class="p-key">Country: </span>
+          <span class="p-value">{{hit._source.country_long}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.date}}
+      <div>
+          <span class="p-key">Date: </span>
+          <span class="p-value">{{hit._source.date}}</span>
+      </div>
+    {{/if}}
+    {{#if hit._source.source}}
+      <div><span class="p-key">Source: </span></div>
+      <div class="source-container">{{hit._source.source}}</div>
+    {{/if}}
+  {{/each}}
+{{/if}}
