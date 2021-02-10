@@ -136,6 +136,11 @@ function handleRestError(error, entity, res, body) {
       error: 'Bad Request',
       detail: body.query_status
     };
+  } else if (res.statusCode === 401) {
+    result = {
+      error: 'Invalid Credentials',
+      detail: body.message
+    };
   } else if (res.statusCode === 404) {
     result = {
       error: 'Not Found',
@@ -150,7 +155,8 @@ function handleRestError(error, entity, res, body) {
     result = {
       error: 'Unexpected Error',
       statusCode: res ? res.statusCode : 'Unknown',
-      detail: 'An unexpected error occurred'
+      detail: 'An unexpected error occurred',
+      body
     };
   }
 

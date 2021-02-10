@@ -26,6 +26,7 @@ module.exports = {
     'This integration queries IP and Domain entities against the Andariel IOC dataset.',
   entityTypes: ['ipv4', 'domain'],
   styles: ['./styles/style.less'],
+  defaultColor: 'light-pink',
   /**
    * Provide custom component logic and template for rendering the integration details block.  If you do not
    * provide a custom template and/or component then the integration will display data as a table of key value
@@ -75,7 +76,8 @@ module.exports = {
     {
       key: 'apiKey',
       name: 'Valid Andariel API Key',
-      description: 'Valid Andariel API Key',
+      description:
+        'An Api Key is needed in order to access Andriel Intelligence IOC datasource. Please see https://www.advanced-intel.com/ fo more details on how to obtain an account.',
       default: '',
       type: 'password',
       userCanEdit: true,
