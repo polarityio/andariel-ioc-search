@@ -5,7 +5,7 @@ module.exports = {
    * @type String
    * @required
    */
-  name: 'Andariel IOC Search',
+  name: 'ADVINTEL Andariel IOC API Search',
   /**
    * The acronym that appears in the notification window when information from this integration
    * is displayed.  Note that the acronym is included as part of each "tag" in the summary information
@@ -23,8 +23,8 @@ module.exports = {
    * @optional
    */
   description:
-    'This integration queries IP and Domain entities against the Andariel IOC dataset.',
-  entityTypes: ['ipv4', 'domain'],
+    'This integration queries various indicator types against the ADVINTEL Andariel IOC API.',
+  entityTypes: ['ipv4', 'domain', 'hash', 'email'],
   styles: ['./styles/style.less'],
   defaultColor: 'light-pink',
   /**
@@ -75,9 +75,9 @@ module.exports = {
   options: [
     {
       key: 'apiKey',
-      name: 'Valid Andariel API Key',
+      name: 'Valid ADVINTEL Andariel API Key',
       description:
-        'An Api Key is needed in order to access Andriel Intelligence IOC datasource. Please see https://www.advanced-intel.com/ fo more details on how to obtain an account.',
+        'A valid API key is needed in order to access the ADVINTEL Andariel Intelligence IOC API. Please visit https://www.advanced-intel.com/ for more details on how to obtain access.',
       default: '',
       type: 'password',
       userCanEdit: true,

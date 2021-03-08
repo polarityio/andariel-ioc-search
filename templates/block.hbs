@@ -3,63 +3,167 @@
     <span class="p-title">{{fa-icon "bug" fixedWidth=true}} Search Result Detail</span>
   </div>
   {{#each details.hits.hits as |hit index|}}
-    {{#if (gt index 0)}}
-      <hr>
-    {{/if}}
-    <span class="p-title">Result #{{inc index}}:</span>
-    {{#if hit._index}}
-      {{#if (eq hit._index "logstash-iocapi")}}
+    <!--Parsing logic for Logstash index-->
+    {{#if (eq hit._index "logstash-iocapi")}}
+      <div>
+          <span class="p-key">Index: </span>
+          <span class="p-value">Logstash IOC's</span>
+      </div>
+      {{#if hit._score}}
         <div>
-            <span class="p-key">Index: </span>
-            <span class="p-value">IOC API</span>
+            <span class="p-key">Severity Score: </span>
+            <span class="p-value">{{hit._score}}</span>
         </div>
       {{/if}}
+      {{#if hit._source.id}}
+        <div>
+            <span class="p-key">ID: </span>
+            <span class="p-value">{{hit._source.id}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.domain}}
+        <div>
+            <span class="p-key">Domain: </span>
+            <span class="p-value">{{hit._source.domain}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.entity}}
+        <div>
+            <span class="p-key">Entity: </span>
+            <span class="p-value">{{hit._source.entity}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.isp}}
+        <div>
+            <span class="p-key">ISP: </span>
+            <span class="p-value">{{hit._source.isp}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.country_long}}
+        <div>
+            <span class="p-key">Country: </span>
+            <span class="p-value">{{hit._source.country_long}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.date}}
+        <div>
+            <span class="p-key">Date: </span>
+            <span class="p-value">{{hit._source.date}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.source}}
+        <div><span class="p-key">Source: </span></div>
+        <div class="source-container">{{hit._source.source}}</div>
+      {{/if}}
+      <hr>
     {{/if}}
-    {{#if hit._score}}
+    <!--Parsing logic for OpenCTI index-->
+    {{#if (eq hit._index "opencti_indicator")}}
       <div>
-          <span class="p-key">Severity Score: </span>
-          <span class="p-value">{{hit._score}}</span>
+          <span class="p-key">Index: </span>
+          <span class="p-value">OpenCTI IOC's</span>
       </div>
-    {{/if}}
-    {{#if hit._source.id}}
-      <div>
-          <span class="p-key">ID: </span>
-          <span class="p-value">{{hit._source.id}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.domain}}
-      <div>
-          <span class="p-key">Domain: </span>
-          <span class="p-value">{{hit._source.domain}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.entity}}
-      <div>
-          <span class="p-key">Entity: </span>
-          <span class="p-value">{{hit._source.entity}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.isp}}
-      <div>
-          <span class="p-key">ISP: </span>
-          <span class="p-value">{{hit._source.isp}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.country_long}}
-      <div>
-          <span class="p-key">Country: </span>
-          <span class="p-value">{{hit._source.country_long}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.date}}
-      <div>
-          <span class="p-key">Date: </span>
-          <span class="p-value">{{hit._source.date}}</span>
-      </div>
-    {{/if}}
-    {{#if hit._source.source}}
-      <div><span class="p-key">Source: </span></div>
-      <div class="source-container">{{hit._source.source}}</div>
+      {{#if hit._source.observableRefs}}
+        <div>
+            {{#each hit._source.observableRefs as |ref| }}
+              {{#if ref.entity_type}}
+                <div>
+                    <span class="p-key">Observable Type: </span>
+                    <span class="p-value">{{ref.entity_type}}</span>
+                </div>
+              {{/if}}
+              {{#if ref.observable_value}}
+                <span class="p-key">Observable Value:</span>
+                <a href="https://adv-gate.com/opencti/dashboard/signatures/observables/{{ref.id}}" class="p-link">{{ref.observable_value}} {{fa-icon "external-link-square" class="external-link-icon"}}</a><br>
+              {{/if}}
+            {{/each}}
+        </div>
+      {{/if}}
+      {{#if hit._score}}
+        <div>
+            <span class="p-key">Score: </span>
+            <span class="p-value">{{hit._score}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.description}}
+        <div>
+            <span class="p-key">Description: </span>
+            <span class="p-value">{{hit._source.description}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.detection}}
+        <div>
+            <span class="p-key">Detection: </span>
+            <span class="p-value">{{hit._source.detection}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.confidence}}
+        <div>
+            <span class="p-key">Confidence: </span>
+            <span class="p-value">{{hit._source.confidence}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.createdByRef.name}}
+        <div>
+            <span class="p-key">Author: </span>
+            <a href="https://adv-gate.com/opencti/dashboard/entities/organizations/{{hit._source.createdByRef.id}}" class="p-link">{{hit._source.createdByRef.name}} {{fa-icon "external-link-square" class="external-link-icon"}}</a><br>
+        </div>
+      {{/if}}
+      {{#if hit._source.valid_from}}
+        <div>
+            <span class="p-key">Valid From: </span>
+            <span class="p-value">{{hit._source.valid_from}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.valid_until}}
+        <div>
+            <span class="p-key">Valid Until: </span>
+            <span class="p-value">{{hit._source.valid_until}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.created_at}}
+        <div>
+            <span class="p-key">Created At: </span>
+            <span class="p-value">{{hit._source.created_at}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.updated_at}}
+        <div>
+            <span class="p-key">Updated At: </span>
+            <span class="p-value">{{hit._source.updated_at}}</span>
+        </div>
+      {{/if}}
+      {{#if hit._source.markingDefinitions}}
+        <h1 class="p-title">
+            {{fa-icon "tags" fixedWidth=true}} Marking Definitions
+        </h1>
+        <div>
+            {{#each hit._source.markingDefinitions as |def| }}
+                <span class="tag">{{def.definition}}</span>
+            {{/each}}
+        </div>
+      {{/if}}
+      {{#if hit._source.parent_types}}
+        <h1 class="p-title">
+            {{fa-icon "tags" fixedWidth=true}} Parent Types
+        </h1>
+        <div>
+            {{#each hit._source.parent_types as |type| }}
+                <span class="tag">{{type}}</span>
+            {{/each}}
+        </div>
+      {{/if}}
+      {{#if hit._source.killChainPhases}}
+        <h1 class="p-title">
+            {{fa-icon "tags" fixedWidth=true}} Kill Chain Phases
+        </h1>
+        <div>
+            {{#each hit._source.killChainPhases as |phase| }}
+                <span class="tag">{{phase}}</span>
+            {{/each}}
+        </div>
+      {{/if}}
+      <hr>
     {{/if}}
   {{/each}}
 {{/if}}

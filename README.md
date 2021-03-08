@@ -1,14 +1,13 @@
 # Polarity Advanced Intelligence LLC, Andariel IOC API Integration
 
-The Polarity Andariel IOC integration allows indicator searches across the Advanced Intelligence IOC dataset.
+The Polarity ADVINTEL Andariel IOC integration allows for various indicator types to be searched across the Andariel IOC API.
 
-Check out a snapshot if the integration below:
-
+<img width=450 src="images/overlay.png">
 
 ## Integration Options
 
 ### Andariel API Key
-An Api Key is needed in order to access Andriel Intelligence IOC datasource. Please see https://www.advanced-intel.com/ fo more details on how to obtain an account.
+A valid API Key is needed in order to access the ADVINTEL Andariel IOC API. Please see https://www.advanced-intel.com/ for more details on how to obtain access.
 
 ## Installation Instructions
 
