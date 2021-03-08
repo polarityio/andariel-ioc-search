@@ -58,16 +58,14 @@ function doLookup(entities, options, cb) {
       json: true
     };
 
-    if (entity.isIPv4) {
+    if (entity.isEmail) {
       requestOptions.qs = {
-        q: 'entity:' + entity.value
-      };
-    } else if (entity.isDomain) {
-      requestOptions.qs = {
-        q: 'domain:' + entity.value
+        q: `"${entity.value}"`
       };
     } else {
-      return;
+      requestOptions.qs = {
+        q: entity.value
+      };
     }
 
     Logger.trace({ requestOptions }, 'Request Options');
@@ -103,7 +101,7 @@ function doLookup(entities, options, cb) {
         lookupResults.push({
           entity: result.entity,
           data: {
-            summary: [`Total Hits: ${result.body.hits.total}`, `Max Score: ${result.body.hits.max_score}`],
+            summary: [`Max Score: ${result.body.hits.max_score}`],
             details: result.body
           }
         });
